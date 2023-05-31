@@ -21,7 +21,36 @@ class ProductController
     {
         $product = $this->gateWay->get($id);
 
-        echo json_encode($product);
+        if (!$product) {
+            http_response_code(404);
+            echo json_encode(["message" => "Product not found"]);
+            return;
+        }
+
+        switch ($method) {
+            case "GET":
+                echo json_encode($product);
+                break;
+
+            case "PATCH":
+                $data = (array) json_decode(file_get_contents("php://input"), true);
+
+                $errors = $this->getValidationErrors($data);
+
+                if (!empty($errors)) {
+                    http_response_code(422);
+                    echo json_encode(["errors" => $errors]);
+                    break;
+                }
+
+                $rows = $this->gateWay->update($product, $data);
+
+                echo json_encode([
+                    "message" => "Product $id updated",
+                    "rows" => $rows
+                ]);
+                break;
+        }
     }
 
     private function processCollectionRequest(string $method): void
