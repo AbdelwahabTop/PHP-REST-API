@@ -14,7 +14,7 @@ header("Content-type: application/json; charset=UTF-8");
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
 if ($parts[2] != "products") {
-    http_response_code(404);
+    http_response_code(404);   
     exit;
 }
 
