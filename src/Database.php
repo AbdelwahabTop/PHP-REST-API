@@ -1,12 +1,14 @@
 <?php
 
-class Database 
+class Database
 {
-    public function __construct(private string $host, 
-                                private string $name, 
-                                private string $user, 
-                                private string $password)
-    {}
+    public function __construct(
+        private string $host,
+        private string $name,
+        private string $user,
+        private string $password
+    ) {
+    }
 
     public function getConnection(): PDO
     {
@@ -16,5 +18,5 @@ class Database
             PDO::ATTR_EMULATE_PREPARES => false,
             PDO::ATTR_STRINGIFY_FETCHES => false
         ]);
-    } 
+    }
 }

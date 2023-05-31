@@ -1,6 +1,6 @@
 <?php
 
-class ProductGateway 
+class ProductGateway
 {
     private PDO $conn;
 

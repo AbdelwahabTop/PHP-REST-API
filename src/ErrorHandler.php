@@ -1,6 +1,6 @@
 <?php
 
-class ErrorHandler 
+class ErrorHandler
 {
     public static function handleException(Throwable $exception): void
     {
@@ -19,8 +19,7 @@ class ErrorHandler
         string $errstr,
         string $errfile,
         int $errline
-    ): bool
-    {
-      throw new ErrorException($errstr, 0, $errno, $errfile, $errline);  
+    ): bool {
+        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
     }
 }

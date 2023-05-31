@@ -4,7 +4,6 @@ class ProductController
 {
     public function __construct(private ProductGateway $gateWay)
     {
-        
     }
 
     public function processRequest(string $method, ?string $id): void
@@ -12,16 +11,14 @@ class ProductController
         if ($id) {
 
             $this->processResourceRequest($method, $id);
-
         } else {
 
             $this->processCollectionRequest($method);
-
         }
     }
 
     private function processResourceRequest(string $method, string $id): void
-    {   
+    {
     }
 
     private function processCollectionRequest(string $method): void
@@ -36,7 +33,7 @@ class ProductController
 
                 $errors = $this->getValidationErrors($data);
 
-                if (! empty($errors)) {
+                if (!empty($errors)) {
                     http_response_code(422);
                     echo json_encode(["errors" => $errors]);
                     break;

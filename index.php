@@ -9,7 +9,7 @@ spl_autoload_register(function ($class) {
 set_error_handler("ErrorHandler::handleError");
 set_exception_handler("ErrorHandler::handleException");
 
-header("Content-type: application/json; charset=UTF-8"); 
+header("Content-type: application/json; charset=UTF-8");
 
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
@@ -22,7 +22,7 @@ $id = $parts[3] ?? null;
 
 $database = new Database("localhost", "product_db", "root", "");
 
-$gateway = new ProductGateway($database); 
+$gateway = new ProductGateway($database);
 
 $controller = new ProductController($gateway);
 
