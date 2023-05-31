@@ -21,8 +21,7 @@ class ProductController
     }
 
     private function processResourceRequest(string $method, string $id): void
-    {
-        
+    {   
     }
 
     private function processCollectionRequest(string $method): void
@@ -30,6 +29,18 @@ class ProductController
         switch ($method) {
             case "GET":
                 echo json_encode($this->gateWay->getAll());
+                break;
+
+            case "POST":
+                $data = (array) json_decode(file_get_contents("php://input"), true);
+
+                $id = $this->gateWay->create($data);
+
+                http_response_code(201);
+                echo json_encode([
+                    "message" => "Product created",
+                    "id" => $id
+                ]);
                 break;
         }
     }
