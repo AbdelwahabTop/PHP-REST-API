@@ -19,6 +19,9 @@ class ProductController
 
     private function processResourceRequest(string $method, string $id): void
     {
+        $product = $this->gateWay->get($id);
+
+        echo json_encode($product);
     }
 
     private function processCollectionRequest(string $method): void
