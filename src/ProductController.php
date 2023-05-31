@@ -2,6 +2,11 @@
 
 class ProductController
 {
+    public function __construct(private ProductGateway $gateWay)
+    {
+        
+    }
+
     public function processRequest(string $method, ?string $id): void
     {
         if ($id) {
@@ -24,7 +29,7 @@ class ProductController
     {
         switch ($method) {
             case "GET":
-                echo json_encode(["id" => 123]);
+                echo json_encode($this->gateWay->getAll());
                 break;
         }
     }
