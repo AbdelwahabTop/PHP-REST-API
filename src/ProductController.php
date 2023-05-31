@@ -35,6 +35,25 @@ class ProductController
             case "PATCH":
                 $data = (array) json_decode(file_get_contents("php://input"), true);
 
+                $errors = $this->getValidationErrors($data, false);
+
+                if (!empty($errors)) {
+                    http_response_code(422);
+                    echo json_encode(["errors" => $errors]);
+                    break;
+                }
+
+                $rows = $this->gateWay->update($product, $data);
+
+                echo json_encode([
+                    "message" => "Product $id updated",
+                    "rows" => $rows
+                ]);
+                break;
+
+            case "DELETE":
+                $data = (array) json_decode(file_get_contents("php://input"), true);
+
                 $errors = $this->getValidationErrors($data);
 
                 if (!empty($errors)) {
@@ -86,11 +105,11 @@ class ProductController
         }
     }
 
-    private function getValidationErrors(array $data): array
+    private function getValidationErrors(array $data, bool $is_new = true)
     {
         $errors = [];
 
-        if (empty($data["name"])) {
+        if ($is_new && empty($data["name"])) {
             $errors[] = "name is required";
         }
 
