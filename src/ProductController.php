@@ -52,23 +52,17 @@ class ProductController
                 break;
 
             case "DELETE":
-                $data = (array) json_decode(file_get_contents("php://input"), true);
-
-                $errors = $this->getValidationErrors($data);
-
-                if (!empty($errors)) {
-                    http_response_code(422);
-                    echo json_encode(["errors" => $errors]);
-                    break;
-                }
-
-                $rows = $this->gateWay->update($product, $data);
+                $rows = $this->gateWay->delete($id);
 
                 echo json_encode([
-                    "message" => "Product $id updated",
+                    "message" => "Product $id deleted",
                     "rows" => $rows
                 ]);
                 break;
+
+            default:
+                http_response_code(405);
+                header("Allow: GET, PATCH, DELETE");
         }
     }
 
